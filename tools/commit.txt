@@ -1,1 +1,6 @@
-init: cria a estrutura inicial do projeto
+fix: aplica correcoes e melhorias no script principal
+
+- Cria a função para gerar arquivos .ics a partir das informações das disciplinas
+- Atualiza as funções para aceitarem o parâmetro `profile_mode`
+- Atualiza as funções para incluir a geração de arquivos .ics
+- Corrige erros na captura de informações das disciplinas

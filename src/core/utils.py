@@ -43,7 +43,7 @@ def setup_logger(
 
     # Formato do log
     formatter = logging.Formatter(
-        fmt="%(asctime)s - %(name)s - %(filename)s:%(lineno)d - %(levelname)s - %(message)s",
+        fmt="%(asctime)s - %(filename)s:%(lineno)d - %(levelname)s - %(message)s",
         datefmt="%Y-%m-%d %H:%M:%S",
     )
 
@@ -69,7 +69,7 @@ def setup_logger(
 
 
 # Inicializa o logger global
-logger = setup_logger(log_file_path=LOG_FILE, level=logging.DEBUG)
+logger = setup_logger(log_file_path=LOG_FILE, level=logging.INFO)
 
 
 def organize_json(file_path: PathLikeAndList) -> None:
