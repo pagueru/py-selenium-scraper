@@ -1,4 +1,4 @@
-# py-selenium-exporter
+# py-selenium-scraper
 
 > [!IMPORTANT]
 > Este arquivo README.md está em construção. Algumas informações podem estar incompletas ou imprecisas no momento, e serão atualizadas conforme o projeto evolui.

@@ -182,8 +182,7 @@ pyrightconfig.json
 config/*.*
 data/archive/*.*
 data/html/*.*
-data/images/*.*
-data/images/archive/*.*
+data/images
 data/input/*.*
 data/output/*.*
 tools/prompts.txt
