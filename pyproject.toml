@@ -1,0 +1,51 @@
+[tool.poetry]
+name = "py-html-curso-exporter"
+version = "0.1.0"
+description = "Automação para acessar um curso da plataforma Colaborar (Anhanguera) e exportar um arquivo iCS com as datas de atividades do curso"
+authors = ["Raphael Coelho <raphael.phael@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+requests = "^2.32.3"
+selenium = "^4.28.1"
+pyaml = "^25.1.0"
+types-pyyaml = "^6.0.12.20241230"
+
+[tool.poetry.group.dev.dependencies]
+black = "^24.10.0"
+isort = "^5.13.2"
+mypy = "^1.14.1"
+pre-commit = "^4.0.1"
+pylance = "^0.21.0"
+pylint = "^3.3.3"
+pyright = "^1.1.392.post0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.pyright]
+typeCheckingMode = "standard"
+extraPaths = ["src", "src/core"]
+
+[tool.mypy]
+mypy_path = ["./typings"]
+ignore_missing_imports = true
+
+[tool.pylint]
+disable = [
+    "logging-fstring-interpolation",
+    "missing-module-docstring",
+    "missing-function-docstring",
+    "missing-class-docstring",
+    "unused-argument", # Remover quando for corrigido
+    "unused-import" # Remover quando for corrigido
+]
+
+[tool.poetry.scripts]
+constypes = "src.core.constypes:debug"
+common = "src.core.common:debug"
+debug = "src.core.debug:debug"
+utils = "src.core.utils:debug"
+main = "src.main:main"
