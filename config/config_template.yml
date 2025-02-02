@@ -1,0 +1,39 @@
+# Configurações do ambiente
+profile_mode: info  # Modos disponíveis: debug | info
+# debug: Executa o script salvando capturas das etapas de execução
+# info: Executa o script sem salvar capturas das etapas de execução
+
+# Caminho do ChromeDriver
+chromedriver: C:\caminho\para\chromedriver.exe
+# Caminho do executável do ChromeDriver, necessário para automação com Selenium
+# Pode ser baixado em: https://chromedriver.chromium.org/downloads
+# Alternativamente, pode ser instalado via winget (consulte ./docs/additional_instructions.md)
+
+# Data de acesso ao portal
+usuario: SEU_CPF  # CPF do aluno utilizado para login
+senha: SUA_SENHA  # Senha de acesso ao portal
+
+# Informações do aluno
+matricula: SUA_MATRICULA
+# Identificador único do aluno, encontrado na URL do dashboard após o login
+# Exemplo de URL: https://www.colaboraread.com.br/aluno/dashboard/index?matriculaId=SUA_MATRICULA
+# A matrícula também determina o período letivo e deve ser atualizada a cada semestre
+
+# Informações do curso utilizadas no campo PRODID do arquivo .ics gerado
+nome_curso: NOME_DO_CURSO # Nome oficial do curso
+semestre: 1o  # Semestre atual formatado como "5o" (quinto semestre)
+nome_aluno: SEU_NOME  # Nome do aluno
+
+# URL's do portal
+colaborar_url: https://www.colaboraread.com.br/login/auth  # Página de login
+colaborar_index_url: https://www.colaboraread.com.br/aluno/timeline/index  # Página inicial do aluno
+
+# Atividades ignoradas
+atividades_ignoradas: [
+    Conteúdo WEB,
+    Leitura,
+    Engajamento AVA,
+    Teleaula
+]
+# Lista de atividades que não precisam ser monitoradas
+# Pode ser personalizada para adicionar ou remover atividades conforme necessário

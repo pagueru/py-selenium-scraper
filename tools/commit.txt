@@ -1,6 +1,9 @@
-fix: aplica correcoes e melhorias no script principal
+feat: Adiciona novas funcionalidades e atualizações
 
-- Cria a função para gerar arquivos .ics a partir das informações das disciplinas
-- Atualiza as funções para aceitarem o parâmetro `profile_mode`
-- Atualiza as funções para incluir a geração de arquivos .ics
-- Corrige erros na captura de informações das disciplinas
+- Adiciona capturas de tela para README.md
+- Cria `additional_instructions.md` com instruções adicionais para o arquivo `.ics` e instalação do ChromeDriver
+- Adiciona o arquivo `config_template.yml` para configuração do ambiente
+- Adiciona o arquivo `ics_template.ics` para a geração de arquivos `.ics`
+- Atualiza o arquivo `.gitignore` para remover ignores
+- Atualiza o script principal para aceitar o parâmetro `profile_mode`
+- Atualiza `pyproject.toml` com o parametro `tool.poetry.scripts` para executar os scripts

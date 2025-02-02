@@ -8,11 +8,12 @@ import subprocess
 import time
 import warnings
 import winsound
-from pathlib import Path
-from typing import Dict, List, Optional
+from typing import Any, Dict, List, Optional, Union
+
+import yaml
 
 import __init__
-from core.constypes import LOG_FILE, PathLike, PathLikeAndList
+from core.constypes import LOG_FILE, PathLike
 from core.debug import debug
 
 
@@ -26,10 +27,10 @@ def setup_logger(
     Configura e retorna um logger com handlers para console e arquivo (opcional).
 
     Args:
-        name (str): Nome do logger (geralmente `__name__`).
         log_file_path (Optional[PathLike]): Caminho do arquivo de log.
         enable_file_log (bool): Ativa ou desativa o log em arquivo (padrão: False).
         level (int): Nível de log (padrão: INFO).
+        suppress_loggers (Optional[List[str]]): Lista de loggers a serem suprimidos.
 
     Returns:
         logging.Logger: Logger configurado.
@@ -72,41 +73,10 @@ def setup_logger(
 logger = setup_logger(log_file_path=LOG_FILE, level=logging.INFO)
 
 
-def organize_json(file_path: PathLikeAndList) -> None:
-    """
-    Organiza um arquivo JSON com chaves sequenciais.
-
-    Args:
-        file_path (JsonFilePath): Caminho do arquivo JSON ou lista de caminhos.
-    """
-    if isinstance(file_path, (str, Path)):
-        file_path = [file_path]
-
-    file_paths = [
-        Path(fpath) if isinstance(fpath, str) else fpath for fpath in file_path
-    ]
-
-    for path in file_paths:
-        logger.info(f"Processando arquivo JSON: {path.name}")
-        try:
-            with open(path, "r", encoding="utf-8") as file:
-                data: Dict[str, Dict[str, str]] = json.load(file)
-
-            data_list = list(data.values())
-            data_list.sort(key=lambda item: item["key_name"])
-            sorted_data = {str(i + 1): item for i, item in enumerate(data_list)}
-
-            with open(path, "w", encoding="utf-8") as file:
-                json.dump(sorted_data, file, indent=4, ensure_ascii=False)
-
-            logger.info(f"Arquivo JSON reorganizado com sucesso: {path.name}")
-        except RuntimeError as e:
-            logger.error(f"Erro ao processar o arquivo JSON {path.name}: {e}")
-
-    logger.info("Todos os arquivos JSON foram processados.")
-
-
 def start_config() -> None:
+    """
+    Inicializa a configuração do script, limpando o terminal e configurando avisos.
+    """
     try:
         subprocess.run(
             ["cls" if platform.system() == "Windows" else "clear"],
@@ -121,14 +91,49 @@ def start_config() -> None:
 
 
 def terminal_line(value: int = 79, char: str = "-") -> None:
+    """
+    Imprime uma linha no terminal com o caractere especificado.
+
+    Args:
+        value (int): Comprimento da linha (padrão: 79).
+        char (str): Caractere a ser usado na linha (padrão: "-").
+    """
     if value <= 0:
         raise ValueError("O valor deve ser maior que 0.")
     print(char * value)
 
 
 def execution_time(start_time: float) -> None:
+    """
+    Calcula e registra o tempo de execução do script.
+
+    Args:
+        start_time (float): Tempo de início da execução.
+    """
     logger.info(f"Tempo de execução: {round(time.time() - start_time, 2)} segundos")
     winsound.Beep(750, 300)
+
+
+def load_file(file_path: str) -> Dict[str, Union[str, Any]]:
+    """
+    Carrega dados a partir de um arquivo JSON, YAML ou ICS.
+
+    Args:
+        file_path (str): Caminho do arquivo.
+
+    Returns:
+        Dict[str, Any]: Dicionário contendo os dados carregados.
+    """
+    file_extension = os.path.splitext(file_path)[1].lower()
+
+    with open(file_path, "r", encoding="utf-8") as file:
+        if file_extension in [".yaml", ".yml"]:
+            return yaml.safe_load(file)
+        if file_extension == ".json":
+            return json.load(file)
+        if file_extension == ".ics":
+            return {"ics_content": file.read()}
+        raise ValueError(f"Formato de arquivo não suportado: {file_extension}")
 
 
 if __name__ == "__main__":

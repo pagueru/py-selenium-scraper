@@ -51,7 +51,7 @@ DOC_DIR: Path = DATA_DIR / "docs"
 
 # Subdiretórios de 'data'
 OUTPUT_DIR: Path = DATA_DIR / "output"
-INPUT_DIR: Path = DATA_DIR / "input"
+# INPUT_DIR: Path = DATA_DIR / "input"
 IMAGE_DIR: Path = DATA_DIR / "images"
 
 # Arquivos principais

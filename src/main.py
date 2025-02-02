@@ -2,6 +2,7 @@
 
 import json
 import os
+import time
 from datetime import datetime
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Union
@@ -12,8 +13,8 @@ from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.common.by import By
 
 import __init__
-from core.constypes import IMAGE_DIR, PathLike
-from core.utils import logger, start_config
+from core.constypes import PathLike
+from core.utils import execution_time, load_file, logger, start_config
 
 
 def setup_webdriver(chromedriver_path: PathLike) -> webdriver.Chrome:
@@ -52,6 +53,7 @@ def save_screenshot(
     """
     Salva uma captura de tela no diretório especificado, adicionando uma
     tag numérica com base nos arquivos existentes, se o profile_mode for "debug".
+    tag numérica com base nos arquivos existentes, se o profile_mode for "debug".
 
     Args:
         driver (webdriver.Chrome): Instância do WebDriver.
@@ -59,18 +61,23 @@ def save_screenshot(
         image_folder (str): Diretório onde a captura de tela será salva.
         image_format (str): Formato da imagem a ser salva (padrão: "png").
         profile_mode (str): Modo de perfil, "debug" ou "info".
+        profile_mode (str): Modo de perfil, "debug" ou "info".
     """
     if profile_mode == "debug":
         existing_files: List[str] = []
-        for f in os.listdir(image_folder):
-            if f.endswith(f".{image_format}"):
-                existing_files.append(f)
+        for image_file in os.listdir(image_folder):
+            if image_file.endswith(f".{image_format}"):
+                existing_files.append(image_file)
         tags = []
         for file in existing_files:
             if "_" in file and file.split("_")[0].isdigit():
                 tags.append(int(file.split("_")[0]))
         tag = str(max(tags) + 1) if tags else "1"
 
+        new_filename = f"{tag}_{filename}.{image_format}"
+        screenshot_path = Path(image_folder) / new_filename
+        driver.save_screenshot(screenshot_path)
+        logger.debug(f"Captura de tela salva em: {screenshot_path}")
         new_filename = f"{tag}_{filename}.{image_format}"
         screenshot_path = Path(image_folder) / new_filename
         driver.save_screenshot(screenshot_path)
@@ -95,6 +102,7 @@ def portal_login(
         login_url (str): URL da página de login. Se não fornecida, será usada a URL padrão.
         image_folder (PathLike): Diretório onde as capturas de tela serão salvas.
         profile_mode (str): Modo de perfil, "debug" ou "info".
+        profile_mode (str): Modo de perfil, "debug" ou "info".
 
     Raises:
         NoSuchElementException: Se algum dos elementos necessários para o login não for encontrado.
@@ -106,15 +114,18 @@ def portal_login(
     driver.get(login_url)
     driver.implicitly_wait(5)
     save_screenshot(driver, "pagina_login", image_folder, profile_mode)
+    save_screenshot(driver, "pagina_login", image_folder, profile_mode)
 
     logger.info("Preenchendo o campo de login")
     login_field = driver.find_element(By.ID, "username")
     login_field.send_keys(username)
     save_screenshot(driver, "campo_usuario_preenchido", image_folder, profile_mode)
+    save_screenshot(driver, "campo_usuario_preenchido", image_folder, profile_mode)
 
     logger.info("Preenchendo o campo de senha")
     password_field = driver.find_element(By.ID, "password")
     password_field.send_keys(password)
+    save_screenshot(driver, "campo_senha_preenchido", image_folder, profile_mode)
     save_screenshot(driver, "campo_senha_preenchido", image_folder, profile_mode)
 
     try:
@@ -122,6 +133,7 @@ def portal_login(
         cookies_button = driver.find_element(By.ID, "btnCookiesAuth")
         cookies_button.click()
         driver.implicitly_wait(1)
+        save_screenshot(driver, "aviso_cookies_fechado", image_folder, profile_mode)
         save_screenshot(driver, "aviso_cookies_fechado", image_folder, profile_mode)
     except NoSuchElementException:
         logger.warning("Aviso de cookies não encontrado, prosseguindo")
@@ -132,10 +144,11 @@ def portal_login(
     )
     login_button.click()
     save_screenshot(driver, "botao_login_clicado", image_folder, profile_mode)
+    save_screenshot(driver, "botao_login_clicado", image_folder, profile_mode)
     driver.implicitly_wait(5)
 
 
-def acessar_curso(
+def access_course(
     driver: webdriver.Chrome, curso_nome: str, image_folder: PathLike, profile_mode: str
 ) -> None:
     """
@@ -145,6 +158,7 @@ def acessar_curso(
         driver (webdriver.Chrome): Instância do WebDriver.
         curso_nome (str): Nome do curso a ser acessado.
         image_folder (str): Diretório onde as capturas de tela serão salvas.
+        profile_mode (str): Modo de perfil, "debug" ou "info".
         profile_mode (str): Modo de perfil, "debug" ou "info".
     """
     try:
@@ -158,12 +172,15 @@ def acessar_curso(
         save_screenshot(
             driver, "botao_acessar_curso_clicado", image_folder, profile_mode
         )
+        save_screenshot(
+            driver, "botao_acessar_curso_clicado", image_folder, profile_mode
+        )
         logger.info("Acesso ao curso realizado com sucesso!")
     except NoSuchElementException as e:
         logger.error(f"Ocorreu um erro ao tentar acessar o curso: {e}")
 
 
-def encontrar_disciplinas(
+def find_subjects(
     driver: webdriver.Chrome,
     index_url: str,
     matricula: str,
@@ -178,6 +195,7 @@ def encontrar_disciplinas(
         index_url (str): URL da página de índice.
         matricula (str): Matrícula do usuário.
         image_folder (str): Diretório onde as capturas de tela serão salvas.
+        profile_mode (str): Modo de perfil, "debug" ou "info".
         profile_mode (str): Modo de perfil, "debug" ou "info".
 
     Returns:
@@ -209,6 +227,7 @@ def encontrar_disciplinas(
             logger.info(f"Disciplina encontrada: {info['nome']}")
 
         save_screenshot(driver, "disciplinas_encontradas", image_folder, profile_mode)
+        save_screenshot(driver, "disciplinas_encontradas", image_folder, profile_mode)
         return disciplinas_filtradas
 
     except NoSuchElementException as e:
@@ -218,7 +237,7 @@ def encontrar_disciplinas(
         return []
 
 
-def acessar_disciplinas(
+def capture_subjects(
     driver: webdriver.Chrome,
     disciplinas_info: List[Dict[str, Union[str, Any]]],
     image_folder: PathLike,
@@ -232,6 +251,7 @@ def acessar_disciplinas(
         disciplinas_info (List[Dict[str, Any]]): Lista de dicionários contendo links
         e nomes das disciplinas.
         profile_mode (str): Modo de perfil, "debug" ou "info".
+        profile_mode (str): Modo de perfil, "debug" ou "info".
     """
     for disciplina in disciplinas_info:
         try:
@@ -240,6 +260,7 @@ def acessar_disciplinas(
             driver.implicitly_wait(5)
 
             screenshot_filename = f"{disciplina['nome'].replace(' ', '_')}"
+            save_screenshot(driver, screenshot_filename, image_folder, profile_mode)
             save_screenshot(driver, screenshot_filename, image_folder, profile_mode)
             logger.info(f"Captura de tela da disciplina '{disciplina['nome']}' salva.")
         except NoSuchElementException as e:
@@ -250,7 +271,7 @@ def acessar_disciplinas(
             logger.error(f"Erro ao acessar a disciplina '{disciplina['nome']}': {e}")
 
 
-def captura_informacoes_disciplinas(
+def fetch_subjects_information(
     driver: webdriver.Chrome,
     disciplinas_info: List[Dict[str, Union[str, Any]]],
     atividades_ignoradas: List[Union[str, Any]],
@@ -261,6 +282,7 @@ def captura_informacoes_disciplinas(
     Args:
         driver (webdriver.Chrome): Instância do WebDriver.
         disciplinas_info (List[Dict[str, Any]]): Lista de dicionários contendo
+        links e nomes das disciplinas.
         links e nomes das disciplinas.
         atividades_ignoradas (List[str]): Lista de atividades a serem ignoradas.
 
@@ -281,6 +303,19 @@ def captura_informacoes_disciplinas(
             atividades = []
             for atividade_element in atividades_elements:
                 try:
+                    tipo_atividade = (
+                        atividade_element.find_element(
+                            By.CSS_SELECTOR, "div.timeline-heading h4.timeline-title"
+                        )
+                        .text.strip()
+                        .split("\n")[0]
+                    )
+
+                    if any(
+                        ignorada in tipo_atividade for ignorada in atividades_ignoradas
+                    ):
+                        continue
+
                     tipo_atividade = (
                         atividade_element.find_element(
                             By.CSS_SELECTOR, "div.timeline-heading h4.timeline-title"
@@ -325,7 +360,7 @@ def captura_informacoes_disciplinas(
     return informacoes_disciplinas
 
 
-def converter_json_para_yml(json_filepath: str, yml_filepath: str) -> None:
+def convert_json_to_yaml(json_filepath: str, yml_filepath: str) -> None:
     """
     Converte um arquivo JSON para YML.
 
@@ -333,8 +368,7 @@ def converter_json_para_yml(json_filepath: str, yml_filepath: str) -> None:
         json_filepath (str): Caminho do arquivo JSON.
         yml_filepath (str): Caminho do arquivo YML.
     """
-    with open(json_filepath, "r", encoding="utf-8") as json_file:
-        data = json.load(json_file)
+    data = load_file(json_filepath)
 
     with open(yml_filepath, "w", encoding="utf-8") as yml_file:
         yaml.dump(data, yml_file, allow_unicode=True, default_flow_style=False)
@@ -342,44 +376,7 @@ def converter_json_para_yml(json_filepath: str, yml_filepath: str) -> None:
     logger.info(f"Arquivo YML salvo em '{yml_filepath}'.")
 
 
-def carregar_configuracoes(config_path: str) -> Dict[str, Union[str, Any]]:
-    """
-    Carrega as configurações a partir de um arquivo YAML.
-
-    Args:
-        config_path (str): Caminho do arquivo de configuração YAML.
-
-    Returns:
-        Dict[str, Any]: Dicionário contendo as configurações carregadas.
-    """
-    with open(config_path, "r", encoding="utf-8") as file:
-        return yaml.safe_load(file)
-
-
-def salvar_informacoes(
-    informacoes: Dict[str, Union[str, Any]], output_dir: str
-) -> None:
-    """
-    Salva as informações das disciplinas em arquivos JSON e YAML.
-
-    Args:
-        informacoes (Dict[str, Any]): Dicionário contendo as informações das disciplinas.
-        output_dir (str): Diretório de saída para salvar os arquivos.
-    """
-    json_filepath = Path(output_dir) / "informacoes_disciplinas.json"
-    yml_filepath = Path(output_dir) / "informacoes_disciplinas.yml"
-
-    with open(json_filepath, "w", encoding="utf-8") as json_file:
-        json.dump(informacoes, json_file, ensure_ascii=False, indent=4)
-
-    with open(yml_filepath, "w", encoding="utf-8") as yml_file:
-        yaml.dump(informacoes, yml_file, allow_unicode=True, default_flow_style=False)
-
-    logger.info(f"Informações salvas em JSON: {json_filepath}")
-    logger.info(f"Informações salvas em YAML: {yml_filepath}")
-
-
-def gera_arquivo_ics(
+def generate_ics_file(
     informacoes: Dict[str, Any],
     template_path: str,
     output_path: str,
@@ -394,8 +391,7 @@ def gera_arquivo_ics(
         output_path (str): Caminho onde o arquivo .ics gerado será salvo.
         config (Dict[str, Any]): Dicionário contendo as configurações do script.
     """
-    with open(template_path, "r", encoding="utf-8") as template_file:
-        template = template_file.read()
+    template = load_file(template_path)["ics_content"]
 
     ics_content = "BEGIN:VCALENDAR\nVERSION:2.0\n"
     for disciplina, dados in informacoes.items():
@@ -436,7 +432,30 @@ def gera_arquivo_ics(
     logger.info(f"Arquivo .ics salvo em '{output_path}'.")
 
 
-def executar_fluxo(config: Dict[str, Union[str, Any]]) -> None:
+def export_information(
+    informacoes: Dict[str, Union[str, Any]], output_dir: str
+) -> None:
+    """
+    Salva as informações das disciplinas em arquivos JSON e YAML.
+
+    Args:
+        informacoes (Dict[str, Any]): Dicionário contendo as informações das disciplinas.
+        output_dir (str): Diretório de saída para salvar os arquivos.
+    """
+    json_filepath = Path(output_dir) / "informacoes_disciplinas.json"
+    yml_filepath = Path(output_dir) / "informacoes_disciplinas.yml"
+
+    with open(json_filepath, "w", encoding="utf-8") as json_file:
+        json.dump(informacoes, json_file, ensure_ascii=False, indent=4)
+
+    with open(yml_filepath, "w", encoding="utf-8") as yml_file:
+        yaml.dump(informacoes, yml_file, allow_unicode=True, default_flow_style=False)
+
+    logger.info(f"Informações salvas em JSON: {json_filepath}")
+    logger.info(f"Informações salvas em YAML: {yml_filepath}")
+
+
+def run_workflow(config: Dict[str, Union[str, Any]]) -> None:
     """
     Executa o fluxo principal do script.
 
@@ -454,6 +473,12 @@ def executar_fluxo(config: Dict[str, Union[str, Any]]) -> None:
             image_folder.mkdir(parents=True, exist_ok=True)
         else:
             image_folder = Path("./data/images")
+        if config.get("profile_mode", "info") == "debug":
+            timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+            image_folder = Path("./data/images") / timestamp
+            image_folder.mkdir(parents=True, exist_ok=True)
+        else:
+            image_folder = Path("./data/images")
 
         portal_login(
             driver,
@@ -463,13 +488,13 @@ def executar_fluxo(config: Dict[str, Union[str, Any]]) -> None:
             image_folder,
             config.get("profile_mode", "info"),
         )
-        acessar_curso(
+        access_course(
             driver,
             config["nome_curso"],
             image_folder,
             config.get("profile_mode", "info"),
         )
-        disciplinas_info = encontrar_disciplinas(
+        disciplinas_info = find_subjects(
             driver,
             config["colaborar_index_url"],
             config["matricula"],
@@ -479,26 +504,31 @@ def executar_fluxo(config: Dict[str, Union[str, Any]]) -> None:
 
         if config.get("profile_mode", "info") == "debug":
             for disciplina in disciplinas_info:
-                acessar_disciplinas(
+                capture_subjects(
                     driver,
                     [disciplina],
                     image_folder,
                     config.get("profile_mode", "info"),
                 )
 
-        informacoes_disciplinas = captura_informacoes_disciplinas(
+        informacoes_disciplinas = fetch_subjects_information(
             driver, disciplinas_info, config.get("atividades_ignoradas", [])  # type: ignore
         )
 
-        salvar_informacoes(informacoes_disciplinas, "./data/output")
-        gera_arquivo_ics(
+        export_information(informacoes_disciplinas, "./data/output")
+        generate_ics_file(
             informacoes_disciplinas,
             "./config/ics_template.ics",
             "./data/output/informacoes_disciplinas.ics",
             config,
         )
+    except KeyboardInterrupt:
+        logger.warning("O script foi interrompido pelo usuário.")
     finally:
         if driver and image_folder:
+            save_screenshot(
+                driver, "final_state", image_folder, config.get("profile_mode", "info")
+            )
             save_screenshot(
                 driver, "final_state", image_folder, config.get("profile_mode", "info")
             )
@@ -507,15 +537,18 @@ def executar_fluxo(config: Dict[str, Union[str, Any]]) -> None:
 
 def main() -> None:
     """Função principal que executa o fluxo do script."""
+    start_time = time.time()
     try:
-        config_yml = carregar_configuracoes("./config/config.yml")
-        executar_fluxo(config_yml)
+        config_yml = load_file("./config/config.yml")
+        run_workflow(config_yml)
     except RuntimeError as e:
         logger.error(f"Ocorreu um erro: {e}")
     except KeyboardInterrupt:
         logger.warning("O script foi interrompido pelo usuário.")
     finally:
+
         logger.info("Script finalizado.")
+        execution_time(start_time)
 
 
 if __name__ == "__main__":

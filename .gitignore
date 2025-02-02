@@ -179,10 +179,10 @@ pyrightconfig.json
 
 # Ignorando arquivos/pastas adicionais
 # Alguns serão revogados após finalização do projeto
-config/*.*
+config/config.yml
 data/archive/*.*
 data/html/*.*
-data/images
+data/images/archive/*.*
 data/input/*.*
 data/output/*.*
 tools/prompts.txt

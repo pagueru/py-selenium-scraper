@@ -1,0 +1,8 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//{nome_aluno}//{semestre} {nome_curso}//PT-BR
+BEGIN:VEVENT
+SUMMARY:{tipo_periodo} {nome_atividade}
+DTSTART;VALUE=DATE:{data_periodo}
+DESCRIPTION:Atividade da disciplina {disciplina}
+END:VEVENT
