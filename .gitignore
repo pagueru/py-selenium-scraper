@@ -186,6 +186,8 @@ data/images/archive/*.*
 data/input/*.*
 data/output/*.*
 tools/prompts.txt
+docs/testes.md
+.log
 
 # Exceto o arquivo .gitkeep
 !.gitkeep

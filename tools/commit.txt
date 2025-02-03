@@ -1,9 +1,5 @@
-feat: Adiciona novas funcionalidades e atualizações
+feat: utiliza o PROFILE_MODE para definir o modo de execução do script
 
-- Adiciona capturas de tela para README.md
-- Cria `additional_instructions.md` com instruções adicionais para o arquivo `.ics` e instalação do ChromeDriver
-- Adiciona o arquivo `config_template.yml` para configuração do ambiente
-- Adiciona o arquivo `ics_template.ics` para a geração de arquivos `.ics`
-- Atualiza o arquivo `.gitignore` para remover ignores
-- Atualiza o script principal para aceitar o parâmetro `profile_mode`
-- Atualiza `pyproject.toml` com o parametro `tool.poetry.scripts` para executar os scripts
+- Adapta o projeto para utilizar a função `load_file` e a constante `PROFILE_MODE`
+- Atualiza o README.md com badges
+- Comenta blocos de script para melhorar o entendimento

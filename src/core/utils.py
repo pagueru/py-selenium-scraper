@@ -1,19 +1,15 @@
 # ./src/core/utils.py
 
-import json
 import logging
-import os
 import platform
 import subprocess
 import time
 import warnings
 import winsound
-from typing import Any, Dict, List, Optional, Union
-
-import yaml
+from typing import List, Optional
 
 import __init__
-from core.constypes import LOG_FILE, PathLike
+from core.constypes import LOG_FILE, PROFILE_MODE, PathLike
 from core.debug import debug
 
 
@@ -69,25 +65,16 @@ def setup_logger(
     return logger_setup
 
 
+# Configura o nível de log
+log_level = logging.INFO
+
+if PROFILE_MODE == "debug":
+    log_level = logging.DEBUG
+if PROFILE_MODE == "info":
+    log_level = logging.INFO
+
 # Inicializa o logger global
-logger = setup_logger(log_file_path=LOG_FILE, level=logging.INFO)
-
-
-def start_config() -> None:
-    """
-    Inicializa a configuração do script, limpando o terminal e configurando avisos.
-    """
-    try:
-        subprocess.run(
-            ["cls" if platform.system() == "Windows" else "clear"],
-            shell=True,
-            check=False,
-        )
-        warnings.filterwarnings("ignore", category=UserWarning, module="selenium")
-        logger.info("Iniciando o script.")
-    except RuntimeError as e:
-        logger.error(f"Erro ao limpar o terminal: {e}")
-        raise
+logger = setup_logger(log_file_path=LOG_FILE, enable_file_log=True, level=log_level)
 
 
 def terminal_line(value: int = 79, char: str = "-") -> None:
@@ -103,6 +90,24 @@ def terminal_line(value: int = 79, char: str = "-") -> None:
     print(char * value)
 
 
+def start_config() -> None:
+    """
+    Limpa o terminal e maraca o inicio do script.
+    """
+    try:
+        subprocess.run(
+            ["cls" if platform.system() == "Windows" else "clear"],
+            shell=True,
+            check=False,
+        )
+        warnings.filterwarnings("ignore", category=UserWarning, module="selenium")
+        terminal_line()
+        logger.info("Iniciando o script.")
+    except RuntimeError as e:
+        logger.error(f"Erro ao limpar o terminal: {e}")
+        raise
+
+
 def execution_time(start_time: float) -> None:
     """
     Calcula e registra o tempo de execução do script.
@@ -112,28 +117,6 @@ def execution_time(start_time: float) -> None:
     """
     logger.info(f"Tempo de execução: {round(time.time() - start_time, 2)} segundos")
     winsound.Beep(750, 300)
-
-
-def load_file(file_path: str) -> Dict[str, Union[str, Any]]:
-    """
-    Carrega dados a partir de um arquivo JSON, YAML ou ICS.
-
-    Args:
-        file_path (str): Caminho do arquivo.
-
-    Returns:
-        Dict[str, Any]: Dicionário contendo os dados carregados.
-    """
-    file_extension = os.path.splitext(file_path)[1].lower()
-
-    with open(file_path, "r", encoding="utf-8") as file:
-        if file_extension in [".yaml", ".yml"]:
-            return yaml.safe_load(file)
-        if file_extension == ".json":
-            return json.load(file)
-        if file_extension == ".ics":
-            return {"ics_content": file.read()}
-        raise ValueError(f"Formato de arquivo não suportado: {file_extension}")
 
 
 if __name__ == "__main__":

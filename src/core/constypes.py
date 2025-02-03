@@ -1,7 +1,11 @@
 # ./src/core/constypes.py
 
+import json
+import os
 from pathlib import Path
-from typing import List, Optional, TypeAlias, Union
+from typing import Any, Dict, List, Optional, TypeAlias, Union
+
+import yaml
 
 import __init__
 from core.debug import debug
@@ -40,6 +44,32 @@ def find_project_root(start_dir: Optional[Path] = None) -> Path:
     return Path("./").resolve()
 
 
+def load_file(file_path: PathLike) -> Dict[str, Union[str, Any]]:
+    """
+    Carrega dados a partir de um arquivo JSON, YAML ou ICS.
+
+    Args:
+        file_path (PathLike): Caminho do arquivo.
+
+    Returns:
+        Dict[str, Any]: Dicionário contendo os dados carregados.
+    """
+    file_extension = os.path.splitext(file_path)[1].lower()
+
+    with open(file_path, "r", encoding="utf-8") as file:
+        if file_extension in [".yaml", ".yml"]:
+            return yaml.safe_load(file)
+        if file_extension == ".json":
+            return json.load(file)
+        if file_extension == ".ics":
+            return {"ics_content": file.read()}
+        raise ValueError(f"Formato de arquivo não suportado: {file_extension}")
+
+
+# Atribui o `PROFILE_MODE` a partir do arquivo de configuração
+PROFILE_MODE = str(load_file("./config/config.yml").get("profile_mode", "info"))
+"""Modo de execução do script: `debug` ou `info`."""
+
 # Caminho base do projeto
 PROJECT_ROOT: Path = find_project_root()
 
@@ -51,7 +81,6 @@ DOC_DIR: Path = DATA_DIR / "docs"
 
 # Subdiretórios de 'data'
 OUTPUT_DIR: Path = DATA_DIR / "output"
-# INPUT_DIR: Path = DATA_DIR / "input"
 IMAGE_DIR: Path = DATA_DIR / "images"
 
 # Arquivos principais
