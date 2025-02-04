@@ -6,6 +6,7 @@ import subprocess
 import time
 import warnings
 import winsound
+from datetime import datetime
 from typing import List, Optional
 
 import __init__
@@ -90,16 +91,17 @@ def terminal_line(value: int = 79, char: str = "-") -> None:
     print(char * value)
 
 
-def start_config() -> None:
+def start_config(clear_terminal: bool = True) -> None:
     """
     Limpa o terminal e maraca o inicio do script.
     """
     try:
-        subprocess.run(
-            ["cls" if platform.system() == "Windows" else "clear"],
-            shell=True,
-            check=False,
-        )
+        if clear_terminal:
+            subprocess.run(
+                ["cls" if platform.system() == "Windows" else "clear"],
+                shell=True,
+                check=False,
+            )
         warnings.filterwarnings("ignore", category=UserWarning, module="selenium")
         terminal_line()
         logger.info("Iniciando o script.")
@@ -108,7 +110,7 @@ def start_config() -> None:
         raise
 
 
-def execution_time(start_time: float) -> None:
+def execution_time(start_time: float, beep: bool = False) -> None:
     """
     Calcula e registra o tempo de execução do script.
 
@@ -116,7 +118,21 @@ def execution_time(start_time: float) -> None:
         start_time (float): Tempo de início da execução.
     """
     logger.info(f"Tempo de execução: {round(time.time() - start_time, 2)} segundos")
-    winsound.Beep(750, 300)
+    if beep:
+        winsound.Beep(750, 300)
+
+
+def ics_date(date_str: str) -> str:
+    """
+    Converte uma string de data do formato 'ddmmyy' para 'yyyymmdd'.
+
+    Args:
+        date_str (str): A string de data no formato 'ddmmyy'.
+
+    Returns:
+        str: A string de data formatada no formato 'yyyymmdd'.
+    """
+    return datetime.strptime(date_str, "%d%m%y").strftime("%Y%m%d")
 
 
 if __name__ == "__main__":

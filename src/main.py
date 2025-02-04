@@ -15,7 +15,7 @@ from selenium.webdriver.common.by import By
 
 import __init__
 from core.constypes import PROFILE_MODE, PathLike, load_file
-from core.utils import execution_time, logger, start_config, terminal_line
+from core.utils import execution_time, ics_date, logger, start_config, terminal_line
 
 # Verifica se o modo de perfil foi definido
 if not PROFILE_MODE:
@@ -393,43 +393,54 @@ def generate_ics_file(
         output_path (PathLike): Caminho onde o arquivo .ics gerado será salvo.
         config (Dict[str, Any]): Dicionário contendo as configurações do script.
     """
-    # Carrega o template do arquivo .ics e inicia o conteúdo
-    template = load_file(template_path)["ics_content"]
-    ics_content = "BEGIN:VCALENDAR\nVERSION:2.0\n"
+
+    # Carrega o template do arquivo .ics
+    template = load_file(template_path)["ics_content"].strip()
+    # print(template)
+
+    # Obtém apenas o cabeçalho
+    header, event_template = template.split("BEGIN:VEVENT", 1)
+    event_template = "BEGIN:VEVENT" + event_template
+    header = header.format(
+        nome_aluno=config["nome_aluno"],
+        semestre=config["semestre"],
+        nome_curso=config["nome_curso"],
+    ).strip()  # Remove espaços em branco no início e no fim
+
+    # print(header)
+    # print(event_template)
+
+    eventos = []
 
     # Itera sobre as disciplinas e atividades
     for disciplina, dados in informacoes.items():
         for atividade in dados["atividades"]:
             nome_atividade = atividade["nome_atividade"]
             periodo = str(atividade["periodo"]).split(" - ")
-            inicio = periodo[0].replace("/", "")
-            fim = periodo[1].replace("/", "")
+            inicio = ics_date(periodo[0].replace("/", ""))
+            fim = ics_date(periodo[1].replace("/", ""))
 
             # Adiciona evento de início
-            evento = template.format(
-                nome_aluno=config["nome_aluno"],
-                semestre=config["semestre"],
-                nome_curso=config["nome_curso"],
-                tipo_periodo="Início",
-                nome_atividade=nome_atividade,
-                data_periodo=inicio,
-                disciplina=disciplina,
-            )
-            ics_content += evento
-
-            if inicio != fim:
-                evento = template.format(
-                    nome_aluno=config["nome_aluno"],
-                    semestre=config["semestre"],
-                    nome_curso=config["nome_curso"],
-                    tipo_periodo="Fim",
+            eventos.append(
+                event_template.format(
+                    tipo_periodo="Início",
                     nome_atividade=nome_atividade,
-                    data_periodo=fim,
+                    data_periodo=inicio,
                     disciplina=disciplina,
                 )
-                ics_content += evento
+            )
 
-    ics_content += "END:VCALENDAR\n"
+            if inicio != fim:
+                eventos.append(
+                    event_template.format(
+                        tipo_periodo="Fim",
+                        nome_atividade=nome_atividade,
+                        data_periodo=fim,
+                        disciplina=disciplina,
+                    )
+                )
+
+    ics_content = f"{header}\n" + "\n".join(eventos) + "\nEND:VCALENDAR\n"
 
     with open(output_path, "w", encoding="utf-8") as ics_file:
         ics_file.write(ics_content)
@@ -489,7 +500,7 @@ def run_workflow(config: Dict[str, Union[str, Any]]) -> None:
         driver = setup_webdriver(config["chromedriver"])
 
         # Marca o início do script
-        start_config()
+        start_config(False)
 
         # Define o diretório de imagens com base no modo de perfil
         if PROFILE_MODE == "debug":

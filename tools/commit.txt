@@ -1,5 +1,5 @@
-feat: utiliza o PROFILE_MODE para definir o modo de execução do script
+feat: corrige a geracaoo do arquivo `.ics`
 
-- Adapta o projeto para utilizar a função `load_file` e a constante `PROFILE_MODE`
-- Atualiza o README.md com badges
-- Comenta blocos de script para melhorar o entendimento
+- Corrige a estrutura de geração do arquivo `.ics`
+- Corrige o formato da data no arquivo `.ics`
+- Adiciona mais conteúdo ao `README.md`

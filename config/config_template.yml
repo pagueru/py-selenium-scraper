@@ -33,7 +33,8 @@ atividades_ignoradas: [
     Conteúdo WEB,
     Leitura,
     Engajamento AVA,
-    Teleaula
+    Teleaula,
+    Live
 ]
 # Lista de atividades que não precisam ser monitoradas
 # Pode ser personalizada para adicionar ou remover atividades conforme necessário

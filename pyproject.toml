@@ -8,7 +8,6 @@ packages = [{include = "src"}]
 
 [tool.poetry.dependencies]
 python = "^3.12"
-requests = "^2.32.3"
 selenium = "^4.28.1"
 pyaml = "^25.1.0"
 types-pyyaml = "^6.0.12.20241230"
