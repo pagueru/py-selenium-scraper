@@ -1,9 +1,9 @@
 # py-selenium-scraper
 
-Projeto que automatiza o acesso à plataforma **[Colaborar da Anhanguera](https://www.colaboraread.com.br/login/auth)**, exportando datas de atividades em um arquivo ICS (iCalendar), utilizando Selenium para web scraping.
+Automatização de acesso à plataforma Colaborar da Anhanguera para exportar datas de atividades em formato iCalendar (ICS) usando Selenium.
 
 <p align="center">
-  <img alt="Overview" src="./data/images/overview.gif" />
+  <img alt="Overview" src="./data/images/overview.gif" width="90%" />
 </p>
 
 [![Python](https://img.shields.io/badge/python-3670A0?style=flat&logo=python&logoColor=ffdd54)](https://www.python.org/)
@@ -13,6 +13,17 @@ Projeto que automatiza o acesso à plataforma **[Colaborar da Anhanguera](https:
 [![Colaborar](https://img.shields.io/badge/Colaborar-FDFCFB?style=flat&logo=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAOCAMAAAAolt3jAAAA0lBMVEUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIjMALTwAGygAM0AAM00AM0cALEYARF0AITEAJTUAIzIAOVUAPloAJzQAQFkAIjMAJTUAJDQAOFIAQ2AAT28AYYgAZokAX40AYYoAYY0AY4wAb6MAaZYAjL4Ahr4AhsIAfrEAibwAm9MAj9MAjMgAk9QAnucAoucAouYApOcAouUAn+IApOsApesArfIAqfIAqfIAqvIAqvIAqvIAqvMAqvIAqvIAqvIAqvIAqvIAqvIAqvIAqvIAqvIOQNevAAAARXRSTlMAAQIDBAYJCg8RExQUGR0eHyIkJCUnKC0wMTI1NzpBQ0xMUFNhcXZ2fX2KkpWZsbK0uLrMz9zl6Ors7vT19vf4+fr7/P3k6244AAAAiUlEQVQIW2XORxbCMAxFUZvQeyfU0HvvAQOxLO1/S2B7Aoc3u0cafMb+CuVrtqhWei1ASgAI3I+cDd0XXnt8JtQsPEWPp3K8fDJ0ccWHvlg2pspQ9eMX0tmr6ib8L+KcTR6w7czsM96avNqKJA+voiFdR6Xs4Eg7RxMQUUoV7DN6VKxuq4TN4p/e/gAWAfnkAFcAAAAASUVORK5CYII=)](https://www.colaboraread.com.br/login/auth)
 
 ---
+
+## Sobre o Projeto
+
+Este projeto tem como objetivo aprofundar conhecimentos em Python, Selenium e boas práticas de organização e documentação, por meio do desenvolvimento de uma aplicação para automatizar o acompanhamento das pendências do meu curso. Utilizando Selenium, a aplicação acessa o ambiente acadêmico, extrai as informações relevantes e as organiza em um arquivo ICS (iCalendar) para importar para o Google Calendar.
+
+### Principais aprendizados
+
+- **Selenium**: Manipulação de elementos, tratamento de exceções e boas práticas em automação.
+- **Organização**: Estruturação modular e reutilização de código.
+- **Documentação**: Registro claro das etapas para facilitar manutenção.
+- **Boas Práticas**: Código limpo, manipulação de dados e verificações de tipo.
 
 ## Requisitos
 
@@ -75,7 +86,7 @@ Renomeie o arquivo `config_template.yml` para `config.yml` com suas informaçõe
   # Informações do aluno
   matricula: SUA_MATRICULA
 
-  # Informações do curso utilizadas no campo PRODID do arquivo .ics gerado
+  # Informações do curso
   nome_curso: NOME_DO_CURSO
   semestre: 1o
   nome_aluno: SEU_NOME
@@ -89,7 +100,8 @@ Renomeie o arquivo `config_template.yml` para `config.yml` com suas informaçõe
     Conteúdo WEB,
     Leitura,
     Engajamento AVA,
-    Teleaula
+    Teleaula,
+    Live
   ]
   ```
 
@@ -108,7 +120,7 @@ Renomeie o arquivo `config_template.yml` para `config.yml` com suas informaçõe
   ```
 
 <p align="center">
-  <img alt="Poetry Run" src="./data/images/poetry_run_main.gif" />
+  <img alt="Poetry Run" src="./data/images/poetry_run_main.gif" width="90%" />
 </p>
 
 O script acessa o portal e exporta as atividades para um arquivo ICS. Os dados gerados também estarão disponíveis em JSON e YAML para melhor visualização.
