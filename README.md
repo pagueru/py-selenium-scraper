@@ -6,21 +6,11 @@ Projeto que automatiza o acesso à plataforma **[Colaborar da Anhanguera](https:
   <img alt="Overview" src="./data/images/overview.gif" />
 </p>
 
-<a href="https://www.python.org/">
-  <img alt="Python" src="https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54" />
-</a>
-<a href="https://python-poetry.org/">
-  <img alt="Poetry" src="https://img.shields.io/badge/Poetry-%233B82F6.svg?style=for-the-badge&logo=poetry&logoColor=0B3D8D" />
-</a>
-<a href="https://www.selenium.dev/">
-  <img alt="Selenium" src="https://img.shields.io/badge/-selenium-%43B02A?style=for-the-badge&logo=selenium&logoColor=white" />
-</a>
-<a href="https://www.anhanguera.com/">
-  <img alt="Anhanguera" src="https://img.shields.io/badge/Anhanguera-FF6F00?style=for-the-badge&logo=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAOCAYAAAAfSC3RAAAB10lEQVR4nI1RvWtTcRQ99/7ee/lotUlAFKqDWAURFxEdtJugs/QPEMGlDqKDXdwVcdK/Qaibg5MgiIiIZrKiGJrEGLXW5tPG8PLe797rIqWhrXjWc849nHOBHeBb9cvWrp3fid8WVq8XpPO56Xu1F+VyOfxvo+82rpu1zYZNSzrVs9tpaEvaenWveHlJYW6JBc/h0xWUOo+JTqabdbzl1NDNIInus9gHJZuXKPMI3eKFf3czI9+pzsvgS9PSH2bxdzNrmbQrZatUMpu1wZizW7vqipMPoAT5NVBnaCBO3kGwjN2uAGB1S0drfZoWF75yUfhV1T9jcU9GQx2EufQmR9nDGsdtLs1cJCI/lphIuschvAe4febjJhUPvjH7lte+P4V8/ihHAaRfnQOwuDGOrX3cFUSFS24iuKUSL4jxawAgmh6yhgs6iFeQ+GUSPj22qlB4gwuFawBPQdztTOnQkpmFv1vN/XDaMtU7GuMhu5wmncYsAJCtvp/UbP4ugok1Ho1+iuMckZxgwzE1OgBLpzhgRhAAmSyS/no56jVmKe01zjG5Obb0jBAdcdkwAhwgKSAKGAAoYAbA/aXsCvl+/a1zwXEV7wF4M9uY2sZ+RSAjcMSkI3n6B93+8tgmpT2yAAAAAElFTkSuQmCC" />
-</a>
-<a href="https://www.colaboraread.com.br/login/auth">
-  <img alt="Colaborar" src="https://img.shields.io/badge/Colaborar-FDFCFB?style=for-the-badge&logo=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAOCAMAAAAolt3jAAAA0lBMVEUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIjMALTwAGygAM0AAM00AM0cALEYARF0AITEAJTUAIzIAOVUAPloAJzQAQFkAIjMAJTUAJDQAOFIAQ2AAT28AYYgAZokAX40AYYoAYY0AY4wAb6MAaZYAjL4Ahr4AhsIAfrEAibwAm9MAj9MAjMgAk9QAnucAoucAouYApOcAouUAn+IApOsApesArfIAqfIAqfIAqvIAqvIAqvIAqvMAqvIAqvIAqvIAqvIAqvIAqvIAqvIAqvIAqvIOQNevAAAARXRSTlMAAQIDBAYJCg8RExQUGR0eHyIkJCUnKC0wMTI1NzpBQ0xMUFNhcXZ2fX2KkpWZsbK0uLrMz9zl6Ors7vT19vf4+fr7/P3k6244AAAAiUlEQVQIW2XORxbCMAxFUZvQeyfU0HvvAQOxLO1/S2B7Aoc3u0cafMb+CuVrtqhWei1ASgAI3I+cDd0XXnt8JtQsPEWPp3K8fDJ0ccWHvlg2pspQ9eMX0tmr6ib8L+KcTR6w7czsM96avNqKJA+voiFdR6Xs4Eg7RxMQUUoV7DN6VKxuq4TN4p/e/gAWAfnkAFcAAAAASUVORK5CYII=" />
-</a>
+[![Python](https://img.shields.io/badge/python-3670A0?style=flat&logo=python&logoColor=ffdd54)](https://www.python.org/)
+[![Poetry](https://img.shields.io/badge/Poetry-%233B82F6.svg?style=flat&logo=poetry&logoColor=0B3D8D)](https://python-poetry.org/)
+[![Selenium](https://img.shields.io/badge/-selenium-%43B02A?style=flat&logo=selenium&logoColor=white)](https://www.selenium.dev/)
+[![Anhanguera](https://img.shields.io/badge/Anhanguera-FF6F00?style=flat&logo=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAOCAYAAAAfSC3RAAAB10lEQVR4nI1RvWtTcRQ99/7ee/lotUlAFKqDWAURFxEdtJugs/QPEMGlDqKDXdwVcdK/Qaibg5MgiIiIZrKiGJrEGLXW5tPG8PLe797rIqWhrXjWc849nHOBHeBb9cvWrp3fid8WVq8XpPO56Xu1F+VyOfxvo+82rpu1zYZNSzrVs9tpaEvaenWveHlJYW6JBc/h0xWUOo+JTqabdbzl1NDNIInus9gHJZuXKPMI3eKFf3czI9+pzsvgS9PSH2bxdzNrmbQrZatUMpu1wZizW7vqipMPoAT5NVBnaCBO3kGwjN2uAGB1S0drfZoWF75yUfhV1T9jcU9GQx2EufQmR9nDGsdtLs1cJCI/lphIuschvAe4febjJhUPvjH7lte+P4V8/ihHAaRfnQOwuDGOrX3cFUSFS24iuKUSL4jxawAgmh6yhgs6iFeQ+GUSPj22qlB4gwuFawBPQdztTOnQkpmFv1vN/XDaMtU7GuMhu5wmncYsAJCtvp/UbP4ugok1Ho1+iuMckZxgwzE1OgBLpzhgRhAAmSyS/no56jVmKe01zjG5Obb0jBAdcdkwAhwgKSAKGAAoYAbA/aXsCvl+/a1zwXEV7wF4M9uY2sZ+RSAjcMSkI3n6B93+8tgmpT2yAAAAAElFTkSuQmCC)](https://www.anhanguera.com/)
+[![Colaborar](https://img.shields.io/badge/Colaborar-FDFCFB?style=flat&logo=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAOCAMAAAAolt3jAAAA0lBMVEUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIjMALTwAGygAM0AAM00AM0cALEYARF0AITEAJTUAIzIAOVUAPloAJzQAQFkAIjMAJTUAJDQAOFIAQ2AAT28AYYgAZokAX40AYYoAYY0AY4wAb6MAaZYAjL4Ahr4AhsIAfrEAibwAm9MAj9MAjMgAk9QAnucAoucAouYApOcAouUAn+IApOsApesArfIAqfIAqfIAqvIAqvIAqvIAqvMAqvIAqvIAqvIAqvIAqvIAqvIAqvIAqvIAqvIOQNevAAAARXRSTlMAAQIDBAYJCg8RExQUGR0eHyIkJCUnKC0wMTI1NzpBQ0xMUFNhcXZ2fX2KkpWZsbK0uLrMz9zl6Ors7vT19vf4+fr7/P3k6244AAAAiUlEQVQIW2XORxbCMAxFUZvQeyfU0HvvAQOxLO1/S2B7Aoc3u0cafMb+CuVrtqhWei1ASgAI3I+cDd0XXnt8JtQsPEWPp3K8fDJ0ccWHvlg2pspQ9eMX0tmr6ib8L+KcTR6w7czsM96avNqKJA+voiFdR6Xs4Eg7RxMQUUoV7DN6VKxuq4TN4p/e/gAWAfnkAFcAAAAASUVORK5CYII=)](https://www.colaboraread.com.br/login/auth)
 
 ---
 
@@ -125,22 +115,23 @@ O script acessa o portal e exporta as atividades para um arquivo ICS. Os dados g
 
 Abaixo está um exemplo de como os dados são organizados no formato YAML, com detalhes sobre as atividades, períodos e tipos de tarefas:
 
-```ics
+```plaintext
 BEGIN:VCALENDAR
 VERSION:2.0
-BEGIN:VCALENDAR
-VERSION:2.0
-PRODID:-//Raphael Coelho//5o Superior de Tecnologia em Inteligência de Mercado e Análise de Dados//PT-BR
+PRODID:-//Raphael Coelho//5o Superior de Tecnologia em Inteligência \
+de Mercado e Análise de Dados//PT-BR
 BEGIN:VEVENT
-SUMMARY:Início Av1 - Administração e Negócios
-DTSTART;VALUE=DATE:030225
-DESCRIPTION:Atividade da disciplina Administração e Negócios
-END:VEVENTBEGIN:VCALENDAR
+SUMMARY:Início Relatório de Aula Prática - Web Analytics
+DTSTART;VALUE=DATE:20250203
+DESCRIPTION:Atividade da disciplina Web Analytics
+END:VCALENDAR
 ```
+
+- O campo `PRODID` foi quebrado para melhor visualização.
 
 ### Exemplos de Retornos
 
-<details><summary><kbd>Formato YAML</kbd></summary>
+<details><summary>Formato YAML</summary>
 
 ```yaml
 Web Analytics:
@@ -172,7 +163,59 @@ Web Analytics:
   link_disciplina: https://www.colaboraread.com.br/aluno/timeline/index/XXXXXXXXXX?ofertaDisciplinaId=XXXXXXX
 ```
 
-<br/> </details>
+</details>
+
+<details><summary>Formato JSON</summary>
+
+```json
+"Web Analytics": {
+        "link_disciplina": "https://www.colaboraread.com.br/aluno/timeline/index/XXXXXXXXXX?ofertaDisciplinaId=XXXXXXX",
+        "atividades": [
+            {
+                "nome_atividade": "Relatório de Aula Prática - Web Analytics",
+                "tipo_atividade": "Portfólio",
+                "periodo": "03/02/25 - 17/05/25"
+            },
+            {
+                "nome_atividade": "Av1 - Web Analytics",
+                "tipo_atividade": "Avaliação Virtual",
+                "periodo": "14/04/25 - 26/05/25"
+            },
+            {
+                "nome_atividade": "Av2 - Web Analytics",
+                "tipo_atividade": "Avaliação Virtual",
+                "periodo": "14/04/25 - 02/06/25"
+            },
+            {
+                "nome_atividade": "Av - Subst. 1 - Web Analytics",
+                "tipo_atividade": "Avaliação Virtual",
+                "periodo": "03/06/25 - 07/06/25"
+            },
+            {
+                "nome_atividade": "Av - Subst. 2 - Web Analytics",
+                "tipo_atividade": "Avaliação Virtual",
+                "periodo": "03/06/25 - 07/06/25"
+            },
+            {
+                "nome_atividade": "Prova Presencial - 1º Chamada - Web Analytics",
+                "tipo_atividade": "Prova Presencial da Disciplina",
+                "periodo": "24/05/25 - 31/05/25"
+            },
+            {
+                "nome_atividade": "Prova Presencial - 2º Chamada - Web Analytics",
+                "tipo_atividade": "Prova Presencial da Disciplina",
+                "periodo": "09/06/25 - 14/06/25"
+            },
+            {
+                "nome_atividade": "Prova Presencial - Recuperação - Web Analytics",
+                "tipo_atividade": "Prova Presencial da Disciplina",
+                "periodo": "16/06/25 - 21/06/25"
+            }
+        ]
+    }
+```
+
+</details>
 
 ## Contato
 
