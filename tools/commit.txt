@@ -1,7 +1,1 @@
-♻️ update: refatora a estrutura do projeto para premissas de `clean arc`
-
-- Substituição do `Poetry` pelo `uv` 
-- Adição da biblioteca `webdriver-manager`
-- Atualização do `README.md`
-- Aplicação de módulos implementados em oturos projetos
-- Padronização das nomenclaturas utilizadas em todo o projeto
+♻️ update: atualiza o README.md

@@ -1,0 +1,53 @@
+repos:
+-   repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+    -   id: check-merge-conflict
+    -   id: check-added-large-files
+        args: ['--maxkb=500']
+    -   id: trailing-whitespace
+    -   id: check-toml
+    -   id: check-yaml
+    -   id: pretty-format-json
+        args: ["--autofix"]
+    -   id: check-json
+    -   id: detect-aws-credentials
+    -   id: detect-private-key
+
+-   repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.11.13
+    hooks:
+    -   id: ruff
+        name: ruff
+        args: ["--fix"]
+
+-   repo: https://gitlab.com/vojko.pribudic.foss/pre-commit-update
+    rev: v0.7.0
+    hooks:
+    -   id: pre-commit-update
+
+-   repo: local
+    hooks:
+    # -   id: pytest
+    #     name: run pytest
+    #     description: run all tests
+    #     entry: uv run pytest
+    #     language: system
+    #     pass_filenames: false
+    #     require_serial: true
+
+    # -   id: pytest-coverage
+    #     name: run pytest with coverage
+    #     description: check 80% test coverage
+    #     entry: uv run pytest --cov-fail-under=80
+    #     language: system
+    #     pass_filenames: false
+    #     require_serial: true
+
+    -   id: pre-commit-autoupdate
+        name: update pre-commit hooks
+        description: update the versions of the pre-commit hooks
+        entry: uv run pre-commit autoupdate
+        language: system
+        pass_filenames: false
+        require_serial: true

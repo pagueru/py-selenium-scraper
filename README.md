@@ -30,15 +30,9 @@ Este projeto tem como objetivo aprofundar conhecimentos em Python, Selenium e bo
 
 - [Python](https://www.python.org/downloads/)
 - [Pyenv](https://pypi.org/project/pyenv/)
-- [Poetry](https://python-poetry.org/)
-- [ChromeDriver](https://googlechromelabs.github.io/chrome-for-testing/)
+- [uv](https://docs.astral.sh/uv/getting-started/installation/)
 
-Para utilizar este projeto, recomenda-se o uso do Pyenv para gerenciar versões do Python e do Poetry para gerenciar as dependências definidas no arquivo `pyproject.toml`.
-
-- Para instalar e configurar o Pyenv e o Poetry no Windows, confira [este vídeo](https://www.youtube.com/watch?v=547Jr26duHQ).
-- Para aprender como gerenciar múltiplas versões do Python usando o Pyenv, leia [este artigo](https://realpython.com/intro-to-pyenv/).
-- Para instalar o ChromeDriver, confira [este vídeo](https://www.youtube.com/watch?v=FT0cWOUkCzI) ou acesse diretamente [aqui](https://googlechromelabs.github.io/chrome-for-testing/#stable) e escolha a versão stable para o seu Windows (`win32` ou `win64`).
-- Também é possível instalar o ChromeDriver utilizando o Winget, como descrito no [additional_instructions.md](./additional_instructions.md).
+Para usar este projeto, recomenda-se o `Pyenv` para gerenciar versões do Python e o `uv` para as dependências do `pyproject.toml`. Ambos são opcionais, pois você pode usar a versão do Python do sistema e instalar dependências via `pip` com o `requirements.txt`.
 
 ## Configuração do Projeto
 
