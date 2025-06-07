@@ -1,5 +1,7 @@
-feat: corrige a geracaoo do arquivo `.ics`
+♻️ update: refatora a estrutura do projeto para premissas de `clean arc`
 
-- Corrige a estrutura de geração do arquivo `.ics`
-- Corrige o formato da data no arquivo `.ics`
-- Adiciona mais conteúdo ao `README.md`
+- Substituição do `Poetry` pelo `uv` 
+- Adição da biblioteca `webdriver-manager`
+- Atualização do `README.md`
+- Aplicação de módulos implementados em oturos projetos
+- Padronização das nomenclaturas utilizadas em todo o projeto

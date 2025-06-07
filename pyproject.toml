@@ -1,52 +1,104 @@
-[tool.poetry]
+[project]
 name = "py-html-curso-exporter"
 version = "0.1.0"
 description = "Automação para acessar um curso da plataforma Colaborar (Anhanguera) e exportar um arquivo iCS com as datas de atividades do curso"
-authors = ["Raphael Coelho <raphael.phael@gmail.com>"]
+authors = [
+    { name = "Raphael Coelho", email = "raphael.phael@gmail.com" }
+]
 readme = "README.md"
-packages = [{include = "src"}]
+requires-python = ">=3.13"
 
-[tool.poetry.dependencies]
-python = "^3.12"
-selenium = "^4.28.1"
-pyaml = "^25.1.0"
-types-pyyaml = "^6.0.12.20241230"
-
-[tool.poetry.group.dev.dependencies]
-black = "^24.10.0"
-isort = "^5.13.2"
-mypy = "^1.14.1"
-pre-commit = "^4.0.1"
-pylance = "^0.21.0"
-pylint = "^3.3.3"
-pyright = "^1.1.392.post0"
-
-
-[build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
-
-[tool.pyright]
-typeCheckingMode = "standard"
-extraPaths = ["src", "src/core"]
-
-[tool.mypy]
-mypy_path = ["./typings"]
-ignore_missing_imports = true
-
-[tool.pylint]
-disable = [
-    "logging-fstring-interpolation",
-    "missing-module-docstring",
-    "missing-function-docstring",
-    "missing-class-docstring",
-    "unused-argument", # Remover quando for corrigido
-    "unused-import" # Remover quando for corrigido
+dependencies = [
+    "PyYaml>=6.0.2,<7.0.0",
+    "selenium>=4.33.0",
+    "tzdata>=2025.2",
+    "webdriver-manager>=4.0.2",
 ]
 
-[tool.poetry.scripts]
-constypes = "src.core.constypes:debug"
-common = "src.core.common:debug"
-debug = "src.core.debug:debug"
-utils = "src.core.utils:debug"
-main = "src.main:main"
+[project.optional-dependencies]
+dev = [
+    "ruff>=0.11.0",
+    "pytest>=8.3.4",
+    "pre-commit>=4.0.1",
+    "pytest-cov>=6.0.0",
+    "black>=25.1.0",
+]   
+
+[tool.pylint]
+extension-pkg-allow-list = ["pyodbc", "numpy", "pandas"]
+ignore-patterns = [".venv", ".pyenv"]	
+disable = [
+    "R1720", # R1720:no-else-raise
+    "W1201", # W1201:logging-not-lazy
+    "R1710", # R1710:inconsistent-return-statements
+    "R1705", # R1705:no-else-return
+    "W0611", # W0611:unused-imported
+    "R0902", # R0902:too-many-instance-attributes
+    "W0511", # FIX ME:fixme
+    "fixme", # FIX ME:fixme
+]
+
+
+[tool.ruff]
+lint.select = ["ALL"]    # Ativar todas as regras de linting, análise e estilo
+lint.unfixable = []      # Permitir todas as correções
+lint.isort.force-sort-within-sections = true # Forçar a ordenação dentro de seções
+lint.isort.combine-as-imports = true         # Permitir importações combinadas
+lint.ignore = [
+    "D203",              # Conflito com D211 (linha em branco antes da classe)
+    "D212",              # Conflito com D213 (resumo na primeira linha)
+    "COM812",            # Conflito com formatador (vírgula ausente)
+    "ISC001",            # Já corrigido pelo formatador (concatenação implícita)
+    "G004",              # Já corrigido pelo formatador (no-else-return)
+    "S101",              # Permite o uso de `assert`
+    "PERF401",           # Permite o uso de `for-loop` em vez de `list-comprehension`
+    "T201",              # Permite o uso de `print`
+    "ERA001",            # Permite o uso de comentários
+    "T203",              # Permite o uso de `pprint`
+    "ANN401",            # Permite o uso de `Any` em um `return`
+    "S105",              # Permite o uso de hardcoded password
+    "TRY003",            # Permite o uso de mensagens longas fora da classe de exceção
+    "RUF001",            # Permite o uso de caracteres unicode ambiguos ("–" e "-")
+
+    # Permissões para `TODO` e `FIXME` 
+    "TD001",             # Permite `TODO` sem descrição detalhada
+    "TD003",             # Permite `TODO` sem link para issue
+    "TD002",             # Permite `TODO` sem identificação do autor
+    "FIX001",            # Permite `FIXME` sem descrição detalhada
+    "FIX003",            # Permite `FIXME` sem link para issue
+    "FIX002",            # Permite `FIXME` sem ser tratado como erro crítico
+    "EM101",             # Permite o uso de string literal diretamente em exceções
+
+    # Remover ao final do projeto
+    "F401"
+]
+fix = true               # Ativar correções automáticas
+line-length = 100        # Definir o comprimento da linha para 100 caracteres
+target-version = "py313" # Compatível com Python 3.13
+exclude = [
+    ".venv",
+    "__pycache__",
+]
+
+[tool.ruff.format]
+quote-style = "double"            # Usar aspas duplas (Black)
+indent-style = "space"            # Indentação com espaços (Black)
+skip-magic-trailing-comma = false # Manter vírgula mágica (Black)
+line-ending = "auto"              # Detectar o tipo de quebra de linha (Black)
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"             # Exigir docstrings ("numpy" ou "pep257")
+
+[tool.ruff.lint.flake8-annotations]
+mypy-init-return = true           # Exigir anotações de tipo em __init__ e __new__
+suppress-none-returning = false   # Não suprimir erros de retorno None
+allow-star-arg-any = false        # Não permitir *args e **kwargs sem anotações de tipo
+
+[tool.pytest.ini_options]
+pythonpath = [".","src"]         # Adiciona o diretório atual ao PYTHONPATH
+
+[project.urls]
+repository = "https://github.com/pagueru/py-selenium-scraper"
+
+[tool.hatch.build.targets.wheel]
+packages = [".","src"]

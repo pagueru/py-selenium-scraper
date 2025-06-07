@@ -177,17 +177,13 @@ pyrightconfig.json
 
 ####
 
-# Ignorando arquivos/pastas adicionais
-# Alguns serão revogados após finalização do projeto
-config/config.yml
-data/archive/*.*
-data/html/*.*
-data/images/archive/*.*
-data/input/*.*
-data/output/*.*
-tools/prompts.txt
-docs/testes.md
-.log
+# .gitignore adicional
+**/settings.yaml
+**/test_report
+**/archive
+**/html
+**/output
 
 # Exceto o arquivo .gitkeep
 !.gitkeep
+!__init__.py
