@@ -24,7 +24,8 @@ Este projeto tem como objetivo aprofundar conhecimentos em Python, Selenium e bo
 - **Selenium**: Manipulação de elementos, tratamento de exceções e boas práticas em automação.
 - **Organização**: Estruturação modular e reutilização de código.
 - **Documentação**: Registro claro das etapas para facilitar manutenção.
-- **Boas Práticas**: Código limpo, manipulação de dados e verificações de tipo.
+- **Clean Architecture**: Separação de responsabilidades por camadas, promovendo organização e manutenção do código.
+- **Boas Práticas**: Adoção de tipagem forte, validações, linting com Ruff e leitura facilitada do código.
 
 ## Requisitos
 
@@ -36,8 +37,6 @@ Para usar este projeto, recomenda-se o `Pyenv` para gerenciar versões do Python
 
 ## Configuração do Projeto
 
-### 1. Clonando o Repositório
-
 Para começar, clone o repositório do projeto:
 
 ```bash
@@ -45,25 +44,23 @@ git clone https://github.com/pagueru/py-selenium-scraper
 cd py-selenium-scraper
 ```
 
-### 2. Preparando o Ambiente de Desenvolvimento
+## Instalação
 
-O projeto requer a versão 3.12.7 do Python:
-
-```bash
-pyenv update
-pyenv install 3.12.7
-pyenv local 3.12.7
-```
-
-Configure o Poetry para gerenciar as dependências do projeto:
+Instalação recomendada (usando uv):
 
 ```bash
-poetry env use 3.12.7
-poetry shell
-poetry install
+uv sync --all-extras
 ```
 
-## 3. Personalizando o Arquivo de Configuração
+Alternativamente, você pode instalar as dependências via `requirements.txt`:
+
+```bash
+pip install -r requirements.txt
+```
+
+Pronto! O ambiente está configurado para uso com a versão correta do Python e todas as dependências instaladas via `uv`.
+
+## Personalizando o Arquivo de Configuração
 
 Renomeie o arquivo `config_template.yml` para `config.yml` com suas informações:
 
@@ -100,19 +97,13 @@ Renomeie o arquivo `config_template.yml` para `config.yml` com suas informaçõe
   ]
   ```
 
-## 4. Executando o Projeto
+## Execução do Pipeline
 
-  Como o projeto utiliza `[tool.poetry.scripts]` no arquivo `pyproject.toml`, você pode executar o script diretamente utilizando `poetry run main`
+```bash
+uv run main.py
+```
 
-  ```bash
-  poetry run main
-  ```
-
-  ou
-
-  ```bash
-  poetry run python src/main.py
-  ```
+**Nota:** O `.gif` demonstra a execução com `Poetry`, mas atualmente utilizamos `uv`. Apesar da mudança, o comportamento final permanece o mesmo e pode ser adaptado conforme o ambiente.
 
 <p align="center">
   <img alt="Poetry Run" src="./data/images/poetry_run_main.gif" width="90%" />
