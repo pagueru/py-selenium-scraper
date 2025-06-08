@@ -76,11 +76,12 @@ class BaseClass:
             with file_path.open("r", encoding="utf-8") as file:
                 if file_extension in [".yaml", ".yml"]:
                     data = yaml.safe_load(file)
-                if file_extension == ".json":
+                elif file_extension == ".json":
                     data = json.load(file)
-                if file_extension == ".ics":
+                elif file_extension == ".ics":
                     return {"ics_content": file.read()}
-                self._handle_value_error(f"Formato de arquivo não suportado: {file_extension}")
+                else:
+                    self._handle_value_error(f"Formato de arquivo não suportado: {file_extension}")
 
                 if not isinstance(data, dict):
                     self._handle_value_error(

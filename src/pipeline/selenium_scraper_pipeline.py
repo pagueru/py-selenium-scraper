@@ -1,6 +1,8 @@
 """Orquestrador principal: executa scraping, transformação e armazenamento."""
 
+from contextlib import redirect_stderr, redirect_stdout
 from datetime import datetime
+from io import StringIO
 import json
 import os
 from pathlib import Path
@@ -25,8 +27,6 @@ from src.infrastructure.logger import LoggerSingleton
 # Verifica se o modo de perfil foi definido
 if not PROFILE_MODE:
     raise RuntimeError("O modo de perfil não foi definido.")
-
-import logging
 
 
 class SeleniumScraperPipeline(BaseClass):
@@ -74,7 +74,11 @@ class SeleniumScraperPipeline(BaseClass):
     def _setup_webdriver(self) -> webdriver.Chrome:
         """Configura e inicializa o WebDriver do Chrome usando webdriver-manager."""
         chrome_options = webdriver.ChromeOptions()
+        chrome_options.add_argument("--disable-dev-tools")
         chrome_options.add_argument("--log-level=3")
+        chrome_options.add_argument("--disable-logging")
+        chrome_options.add_argument("--silent")
+        chrome_options.add_argument("--remote-debugging-port=0")
         chrome_options.add_experimental_option("excludeSwitches", ["enable-logging"])
         chrome_options.add_experimental_option("excludeSwitches", ["enable-automation"])
         chrome_options.add_experimental_option("useAutomationExtension", False)  # noqa: FBT003
@@ -400,6 +404,18 @@ class SeleniumScraperPipeline(BaseClass):
         self.logger.info(f"Informações salvas em JSON: '{self.json_filepath}'")
         self.logger.info(f"Informações salvas em YAML: '{self.yml_filepath}'")
 
+    def _shutdown_resources(self) -> None:
+        """Encerra todos os recursos abertos (WebDriver, pools, etc.) de forma segura."""
+        # Encerra o WebDriver, se estiver ativo
+        if getattr(self, "driver", None):
+            try:
+                self.logger.info("Encerrando o WebDriver...")
+                self.driver.quit()
+            except Exception:
+                self.logger.exception("Erro ao encerrar o WebDriver.")
+            finally:
+                self.driver = None
+
     def run_workflow(self) -> None:
         """Executa o fluxo principal do script."""
         try:
@@ -443,15 +459,14 @@ class SeleniumScraperPipeline(BaseClass):
             # Exporta as informações das disciplinas
             self.export_information(informacoes_disciplinas, self.settings)
         except KeyboardInterrupt:
-            super()._separator_line()
             self.logger.warning("Script interrompido pelo usuário.")
         except ProjectError:
             self.logger.exception("Erro durante a execução do pipeline.")
             raise
         finally:
-            if self.driver and self.image_folder:
+            if PROFILE_MODE == "debug" and self.driver and self.image_folder:
                 self._save_screenshot("final_state")
-                self.driver.quit()
+            self._shutdown_resources()
             super()._separator_line()
             echo(
                 f"Pipeline finalizado com sucesso. Resultado salvo em: '{self.output_path}'",

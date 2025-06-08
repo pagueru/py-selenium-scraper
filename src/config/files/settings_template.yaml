@@ -3,12 +3,6 @@ profile_mode: info  # Modos disponíveis: debug | info
 # debug: Executa o script salvando capturas das etapas de execução
 # info: Executa o script sem salvar capturas das etapas de execução
 
-# Caminho do ChromeDriver
-chromedriver: C:\caminho\para\chromedriver.exe
-# Caminho do executável do ChromeDriver, necessário para automação com Selenium
-# Pode ser baixado em: https://chromedriver.chromium.org/downloads
-# Alternativamente, pode ser instalado via winget (consulte ./docs/additional_instructions.md)
-
 # Data de acesso ao portal
 usuario: SEU_CPF  # CPF do aluno utilizado para login
 senha: SUA_SENHA  # Senha de acesso ao portal

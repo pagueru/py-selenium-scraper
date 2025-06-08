@@ -46,7 +46,7 @@ cd py-selenium-scraper
 
 ## Instalação
 
-Instalação recomendada (usando uv):
+Instalação recomendada (usando `uv`):
 
 ```bash
 uv sync --all-extras
@@ -58,18 +58,14 @@ Alternativamente, você pode instalar as dependências via `requirements.txt`:
 pip install -r requirements.txt
 ```
 
-Pronto! O ambiente está configurado para uso com a versão correta do Python e todas as dependências instaladas via `uv`.
-
 ## Personalizando o Arquivo de Configuração
 
-Renomeie o arquivo `config_template.yml` para `config.yml` com suas informações:
+Renomeie o arquivo `settings_template.yml` para `settings.yml` com suas informações:
 
   ```yaml
   # Configurações do ambiente
   profile_mode: info
 
-  # Caminho do ChromeDriver
-  chromedriver: C:\caminho\para\chromedriver.exe
 
   # Data de acesso ao portal
   usuario: SEU_CPF
