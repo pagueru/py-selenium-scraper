@@ -1,11 +1,11 @@
 """Módulo base para todas as classes do projeto."""
 
-from dataclasses import dataclass, field
 import inspect
 import json
+import shutil
+from dataclasses import dataclass, field
 from logging import Logger
 from pathlib import Path
-import shutil
 from typing import Any
 
 import yaml

@@ -1,21 +1,21 @@
 """Orquestrador principal: executa scraping, transformação e armazenamento."""
 
+import json
+import os
+import sys
+import time
 from contextlib import redirect_stderr, redirect_stdout
 from datetime import datetime
 from io import StringIO
-import json
-import os
 from pathlib import Path
-import sys
-import time
 from typing import Any
 
+import yaml
 from selenium import webdriver
 from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.chrome.service import Service as ChromeService
 from selenium.webdriver.common.by import By
 from webdriver_manager.chrome import ChromeDriverManager
-import yaml
 
 from src.common.base.base_class import BaseClass
 from src.common.echo import echo
@@ -32,7 +32,7 @@ if not PROFILE_MODE:
 class SeleniumScraperPipeline(BaseClass):
     """Classe para automação de scraping com Selenium no portal ColaborarEAD."""
 
-    def __init__(self, config: dict[str, Any] | None = None, *, show_browser: bool = False):
+    def __init__(self, config: dict[str, Any] | None = None, *, show_browser: bool = False) -> None:
         """Inicializa a instância do SeleniumScraperPipeline."""
         self.logger = LoggerSingleton().logger or LoggerSingleton.get_logger()
         """Logger singleton para registrar eventos e erros."""
